@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario Community</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+body{overflow-x:hidden;color:white;background:#0f0f0f;}
+
+/* PARTICLES BACKGROUND */
+#particles-js{
+    position:fixed;width:100%;height:100%;z-index:-1;
+}
+
+/* HEADER */
+header{
+    display:flex;justify-content:space-between;align-items:center;padding:20px 10%;
+    position:sticky;top:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(10px);z-index:100;
+}
+.logo{font-size:24px;font-weight:700;color:#00f5ff;}
+nav a{color:white;margin-left:20px;text-decoration:none;font-size:14px;opacity:0.8;}
+nav a:hover{color:#00f5ff;}
+
+/* HERO */
+.hero{
+    height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 20px;
+}
+.hero h1{font-size:50px;}
+.hero span{color:#00f5ff;}
+.hero p{max-width:650px;margin:20px 0;opacity:0.85;font-size:18px;}
+.join-btn{
+    padding:15px 40px;background:#00f5ff;color:black;border-radius:30px;font-weight:600;text-decoration:none;transition:0.3s;
+}
+.join-btn:hover{box-shadow:0 0 25px #00f5ff;transform:scale(1.1);}
+
+/* SECTIONS */
+.section{padding:80px 10%;text-align:center;}
+.section h2{margin-bottom:50px;font-size:32px;}
+
+/* GLASS CARDS + CURSOR TRACK EFFECT */
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;perspective:1000px;}
+.card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    padding:30px;width:260px;border-radius:20px;transition:0.3s;text-align:center;
+}
+
+/* FOOTER */
+footer{text-align:center;padding:20px;opacity:0.6;font-size:14px;}
+
+/* MEMBER COUNTER */
+.counter{margin-top:20px;font-size:18px;opacity:0.8;}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES JS BACKGROUND -->
+<div id="particles-js"></div>
+
+<header>
+    <div class="logo">Mario Community</div>
+    <nav>
+        <a href="#features">Features</a>
+        <a href="#join">Join</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Editors • <span>Anime Fans</span> • Gamers</h1>
+    <p>A place where Editors meet Clients, Weebs vibe together, and Gamers dominate the lobby.</p>
+    <a href="https://discord.gg/HvBewwnVg" target="_blank" class="join-btn">🚀 Join Now</a>
+    <div class="counter" id="member-count">👥 Members: Loading...</div>
+</section>
+
+<section class="section" id="features">
+    <h2>Who Is This For?</h2>
+    <div class="cards">
+        <div class="card">🎬<br><br><b>Editors</b><br>Showcase skills, find clients & grow.</div>
+        <div class="card">💼<br><br><b>Looking For Editors</b><br>Hire talented creators easily.</div>
+        <div class="card">🍥<br><br><b>Anime / Weeb Fans</b><br>Talk anime, share edits & vibe.</div>
+        <div class="card">🎮<br><br><b>Gamers</b><br>Valorant, Roblox & more.</div>
+    </div>
+</section>
+
+<section class="section" id="join">
+    <h2>Ready To Join?</h2>
+    <a href="https://discord.gg/HvBewwnVg" target="_blank" class="join-btn">Join Now 💙</a>
+</section>
+
+<footer>
+    © 2026 Mario | Discord Community
+</footer>
+
+<!-- PARTICLES JS -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+particlesJS('particles-js',{
+  "particles":{
+    "number":{"value":80},
+    "color":{"value":"#00f5ff"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5},
+    "size":{"value":3},
+    "line_linked":{"enable":true,"distance":150,"color":"#00f5ff","opacity":0.4,"width":1},
+    "move":{"enable":true,"speed":3}
+  }
+});
+</script>
+
+<!-- DISCORD MEMBER COUNT -->
+<script>
+async function updateMemberCount(){
+    try{
+        const response = await fetch("https://discord.com/api/v10/invites/HvBewwnVg?with_counts=true");
+        const data = await response.json();
+        document.getElementById('member-count').innerText = "👥 Members: "+data.approximate_member_count;
+    }catch(e){
+        console.log(e);
+        document.getElementById('member-count').innerText = "👥 Members: Unavailable";
+    }
+}
+updateMemberCount();
+</script>
+
+<!-- CURSOR TRACKER FOR CARDS -->
+<script>
+document.addEventListener('mousemove', function(e){
+    const cards = document.querySelectorAll('.card');
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    cards.forEach(card=>{
+        card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+});
+</script>
+
+</body>
+  </html>
